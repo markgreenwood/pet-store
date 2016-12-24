@@ -1,1 +1,11 @@
 <h1>All Stores</h1>
+<p>This is the storesAll component.</p>
+<table>
+  <tr>
+    <th>ID</th><th>Name</th><th>City</th><th>State</th>
+  </tr>
+  <tr ng-click="$ctrl.gotoStore(store._id)" ng-repeat="store in $ctrl.stores">
+    <td>{{ store._id }}</td><td>{{ store.name }}</td><td>{{ store.address.city }}</td><td>{{ store.address.state }}</td>
+  </tr>
+</table>
+<button ui-sref="stores.add">Add store</button>

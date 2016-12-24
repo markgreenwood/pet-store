@@ -3,7 +3,18 @@ import styles from './stores-all.scss';
 
 export default {
   template,
-  controller: function() {
-    this.styles = styles;
-  }
+  bindings: {
+    stores: '<'
+  },
+  controller
 };
+
+controller.$inject = [ 'storeService', '$state' ];
+
+function controller(stores, $state) {
+  this.styles = styles;
+
+  this.gotoStore = (id) => {
+    $state.go('store.pets', { id });
+  };
+}
