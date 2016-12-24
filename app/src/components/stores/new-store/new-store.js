@@ -9,9 +9,9 @@ export default {
   controller
 };
 
-// controller.$inject = [ 'storeService' ];
+controller.$inject = [ '$state' ];
 
-function controller() {
+function controller($state) {
   this.styles = styles;
 
   this.reset = () => {
@@ -32,5 +32,6 @@ function controller() {
     });
 
     this.reset();
+    $state.go('stores.all');
   };
 }
