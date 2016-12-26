@@ -21,6 +21,10 @@ function controller($state) {
     this.address.state = '';
   };
 
+  this.gotoStoresAll = () => {
+    $state.go('stores.all');
+  };
+  
   this.addNew = () => {
     this.add({
       name: this.name,

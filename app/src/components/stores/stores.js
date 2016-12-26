@@ -9,17 +9,21 @@ export default {
   controller
 };
 
-controller.$inject = [ 'storeService' ];
+controller.$inject = [ 'storeService', '$log' ];
 
-function controller(stores) {
-  this.styles = styles;
+function controller(stores, $log) {
 
-  this.add = (store) => {
-    this.loading = true;
+  const self = this;
+  self.styles = styles;
+
+  self.add = (store) => {
+    self.loading = true;
+    $log.log('saving store ', store);
     stores.add(store)
       .then(saved => {
-        this.loading = false;
-        this.stores.push(saved);
+        $log.log('saved ', saved);
+        self.loading = false;
+        self.stores.push(saved);
       });
   };
 }
