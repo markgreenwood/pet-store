@@ -5,15 +5,15 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'stores',
     url: '/stores',
     abstract: true,
+    resolve: {
+      stores: [ 'storeService', stores => stores.getAll() ]
+    },
     component: 'stores'
   });
 
   $stateProvider.state({
     name: 'stores.all',
     url: '/all',
-    resolve: {
-      stores: [ 'storeService', stores => stores.getAll() ]
-    },
     component: 'storesAll'
   });
 

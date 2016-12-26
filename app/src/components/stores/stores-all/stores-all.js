@@ -9,9 +9,9 @@ export default {
   controller
 };
 
-controller.$inject = [ 'storeService', '$state' ];
+controller.$inject = [ '$state' ];
 
-function controller(stores, $state) {
+function controller($state) {
   this.styles = styles;
 
   this.gotoStore = (id) => {

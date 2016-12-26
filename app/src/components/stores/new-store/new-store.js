@@ -34,4 +34,8 @@ function controller($state) {
     this.reset();
     $state.go('stores.all');
   };
+
+  this.cancel = () => {
+    $state.go('stores.all');
+  };
 }

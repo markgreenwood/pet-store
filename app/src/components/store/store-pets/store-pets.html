@@ -1,2 +1,6 @@
 <h1>Our Currently Available Pets</h1>
 <p>This is the storePets component</p>
+<ul>
+  <li ng-repeat="pet in $ctrl.store.pets">{{ pet.name }} ({{ pet.animal }})</li>
+</ul>
+<button ui-sref="store.addPet">Add Pet</button>
