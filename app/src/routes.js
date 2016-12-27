@@ -5,24 +5,22 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'stores',
     url: '/stores',
     abstract: true,
+    default: '.all',
+    resolve: {
+      storesList: [ 'storeService', stores => stores.getAll() ]
+    },
     component: 'stores'
   });
 
   $stateProvider.state({
     name: 'stores.all',
     url: '/all',
-    resolve: {
-      stores: [ 'storeService', stores => stores.getAll() ]
-    },
     component: 'storesAll'
   });
 
   $stateProvider.state({
     name: 'stores.add',
     url: '/add',
-    resolve: {
-      add: [ 'storeService', stores => stores.add ]
-    },
     component: 'newStore'
   });
 
@@ -48,5 +46,5 @@ export default function routes($stateProvider, $urlRouterProvider) {
     component: 'addPet'
   });
 
-  $urlRouterProvider.otherwise('/stores/all');
+  $urlRouterProvider.otherwise('/stores');
 }

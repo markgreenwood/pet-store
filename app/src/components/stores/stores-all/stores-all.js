@@ -4,7 +4,7 @@ import styles from './stores-all.scss';
 export default {
   template,
   bindings: {
-    stores: '<'
+    storesList: '<'
   },
   controller
 };

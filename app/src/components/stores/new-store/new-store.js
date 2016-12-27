@@ -3,8 +3,8 @@ import styles from './new-store.scss';
 
 export default {
   template,
-  bindings: {
-    add: '<'
+  require: {
+    parent: '^stores'
   },
   controller
 };
@@ -12,6 +12,7 @@ export default {
 controller.$inject = [ '$state' ];
 
 function controller($state) {
+
   this.styles = styles;
 
   this.reset = () => {
@@ -24,9 +25,10 @@ function controller($state) {
   this.gotoStoresAll = () => {
     $state.go('stores.all');
   };
-  
+
   this.addNew = () => {
-    this.add({
+    console.log('Entering addNew()...');
+    this.parent.add({
       name: this.name,
       address: {
         street: this.address.street,
@@ -35,7 +37,9 @@ function controller($state) {
       }
     });
 
+    console.log('Resetting form...');
     this.reset();
+    console.log('Going to state stores.all');
     $state.go('stores.all');
   };
 }
