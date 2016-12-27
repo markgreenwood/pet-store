@@ -22,10 +22,6 @@ function controller($state) {
     this.address.state = '';
   };
 
-  this.gotoStoresAll = () => {
-    $state.go('stores.all');
-  };
-
   this.addNew = () => {
     this.parent.add({
       name: this.name,
@@ -37,10 +33,6 @@ function controller($state) {
     });
 
     this.reset();
-    $state.go('stores.all');
-  };
-
-  this.cancel = () => {
     $state.go('stores.all');
   };
 }

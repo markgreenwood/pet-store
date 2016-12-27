@@ -33543,7 +33543,7 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "<a ui-sref=\"stores.all\">stores.all</a>\n<a ui-sref=\"stores.add\">stores.add</a>\n<a ui-sref=\"store.pets\">store.pets</a>\n<a ui-sref=\"store.addPet\">store.addPet</a>\n<main>\n  <ui-view>The main view goes here.</ui-view>\n</main>";
+	module.exports = "<!--<a ui-sref=\"stores.all\">stores.all</a>\n<a ui-sref=\"stores.add\">stores.add</a>\n<a ui-sref=\"store.pets\">store.pets</a>\n<a ui-sref=\"store.addPet\">store.addPet</a>-->\n<main>\n  <ui-view>The main view goes here.</ui-view>\n</main>";
 
 /***/ },
 /* 14 */
@@ -33574,16 +33574,41 @@
 	
 	exports.default = {
 	  template: _addPet2.default,
-	  controller: function controller() {
-	    this.styles = _addPet4.default;
-	  }
+	  bindings: {
+	    store: '<'
+	  },
+	  require: {
+	    parent: '^store'
+	  },
+	  controller: controller
 	};
+	
+	
+	controller.$inject = ['$state'];
+	
+	function controller($state) {
+	  var _this = this;
+	
+	  this.styles = _addPet4.default;
+	
+	  this.addNew = function () {
+	    _this.parent.add({
+	      name: _this.name,
+	      animal: _this.animal,
+	      store: _this.store._id
+	    });
+	  };
+	
+	  this.cancel = function () {
+	    $state.go('store.pets');
+	  };
+	}
 
 /***/ },
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Add Pet</h1>\nThis is the addPet component.";
+	module.exports = "<h1>Add Pet</h1>\nThis is the addPet component.\n<div>\n  Name: <input type=\"text\" ng-model=\"$ctrl.name\"><br />\n  Animal: <input type=\"text\" ng-model=\"$ctrl.animal\"><br />\n</div>\n<div>\n  <button ng-click=\"$ctrl.addNew()\">Add Pet</button>\n  <button ui-sref=\"'store.pets\">Cancel</button>\n</div>";
 
 /***/ },
 /* 18 */
@@ -33614,6 +33639,9 @@
 	
 	exports.default = {
 	  template: _storePets2.default,
+	  bindings: {
+	    store: '<'
+	  },
 	  controller: function controller() {
 	    this.styles = _storePets4.default;
 	  }
@@ -33623,7 +33651,7 @@
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>Our Currently Available Pets</h1>\n<p>This is the storePets component</p>";
+	module.exports = "<h1>Our Currently Available Pets</h1>\n<p>This is the storePets component</p>\n<ul>\n  <li ng-repeat=\"pet in $ctrl.store.pets\">{{ pet.name }} ({{ pet.animal }})</li>\n</ul>\n<button ui-sref=\"store.addPet\">Add Pet</button>";
 
 /***/ },
 /* 22 */
@@ -33659,6 +33687,10 @@
 	  },
 	  controller: function controller() {
 	    this.styles = _store4.default;
+	
+	    this.add = function (pet) {
+	      console.log('Adding pet ', pet);
+	    };
 	  }
 	};
 
@@ -33697,8 +33729,8 @@
 	
 	exports.default = {
 	  template: _newStore2.default,
-	  bindings: {
-	    add: '<'
+	  require: {
+	    parent: '^stores'
 	  },
 	  controller: controller
 	};
@@ -33723,8 +33755,7 @@
 	  };
 	
 	  this.addNew = function () {
-	    console.log('Entering addNew()...');
-	    _this.add({
+	    _this.parent.add({
 	      name: _this.name,
 	      address: {
 	        street: _this.address.street,
@@ -33733,9 +33764,11 @@
 	      }
 	    });
 	
-	    console.log('Resetting form...');
 	    _this.reset();
-	    console.log('Going to state stores.all');
+	    $state.go('stores.all');
+	  };
+	
+	  this.cancel = function () {
 	    $state.go('stores.all');
 	  };
 	}
@@ -33744,7 +33777,7 @@
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>New Store</h1>\n<p>This is the newStore component</p>\n<div>\n  Name: <input type=\"text\" ng-model=\"$ctrl.name\"><br />\n  Address<br />\n  Street: <input type=\"text\" ng-model=\"$ctrl.address.street\"><br />\n  City: <input type=\"text\" ng-model=\"$ctrl.address.city\"><br />\n  State: <input type=\"text\" ng-model=\"$ctrl.address.state\"><br />\n</div>\n<div>\n  <button ng-click=\"$ctrl.addNew()\">Add Store</button>\n  <button ng-click=\"$ctrl.gotoStoresAll()\">Cancel</button>\n</div>";
+	module.exports = "<h1>New Store</h1>\n<p>This is the newStore component</p>\n<div>\n  Name: <input type=\"text\" ng-model=\"$ctrl.name\"><br />\n  Address<br />\n  Street: <input type=\"text\" ng-model=\"$ctrl.address.street\"><br />\n  City: <input type=\"text\" ng-model=\"$ctrl.address.city\"><br />\n  State: <input type=\"text\" ng-model=\"$ctrl.address.state\"><br />\n</div>\n<div>\n  <button ng-click=\"$ctrl.addNew()\">Add Store</button>\n  <button ui-sref=\"stores.all\">Cancel</button>\n</div>";
 
 /***/ },
 /* 30 */
@@ -33782,9 +33815,9 @@
 	};
 	
 	
-	controller.$inject = ['storeService', '$state'];
+	controller.$inject = ['$state'];
 	
-	function controller(stores, $state) {
+	function controller($state) {
 	  this.styles = _storesAll4.default;
 	
 	  this.gotoStore = function (id) {
@@ -33834,29 +33867,19 @@
 	};
 	
 	
-	controller.$inject = ['storeService', '$state', '$log'];
+	controller.$inject = ['storeService', '$state'];
 	
-	function controller(storeService, $state, $log) {
+	function controller(storeService, $state) {
 	  var _this = this;
 	
 	  this.styles = _stores4.default;
 	
-	  $log.log('Initializing stores controller');
-	
-	  this.addStore = function (store) {
-	    console.log('Entering the stores controller add() function...');
+	  this.add = function (store) {
 	    _this.loading = true;
-	    $log.log('saving store ', store);
-	    console.log('Invoking the storeService add() function...');
 	    storeService.add(store).then(function (saved) {
-	      console.log('Resolving promise: saved ', saved);
-	      $log.log('saved ', saved);
 	      _this.loading = false;
-	      console.log('Pushing to stores list: ', saved);
 	      _this.storesList.push(saved);
 	      $state.go('stores.all');
-	    }).catch(function (err) {
-	      $log.log('error ', err);
 	    });
 	  };
 	}

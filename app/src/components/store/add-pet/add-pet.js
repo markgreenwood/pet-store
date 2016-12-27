@@ -4,8 +4,10 @@ import styles from './add-pet.scss';
 export default {
   template,
   bindings: {
-    add: '<',
     store: '<'
+  },
+  require: {
+    parent: '^store'
   },
   controller
 };
@@ -15,15 +17,19 @@ controller.$inject = [ '$state' ];
 function controller($state) {
   this.styles = styles;
 
+  this.reset = () => {
+    this.name = '';
+    this.animal = '';
+  };
+
   this.addNew = () => {
-    this.add({
+    this.parent.add({
       name: this.name,
       animal: this.animal,
       store: this.store._id
     });
-  };
 
-  this.cancel = () => {
+    this.reset();
     $state.go('store.pets');
   };
 }

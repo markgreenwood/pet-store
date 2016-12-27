@@ -46,5 +46,5 @@ export default function routes($stateProvider, $urlRouterProvider) {
     component: 'addPet'
   });
 
-  $urlRouterProvider.otherwise('/stores');
+  $urlRouterProvider.otherwise('/stores/all');
 }

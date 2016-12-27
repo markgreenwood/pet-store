@@ -6,7 +6,22 @@ export default {
   bindings: {
     store: '<'
   },
-  controller: function() {
-    this.styles = styles;
-  }
+  controller
 };
+
+controller.$inject = [ 'petsService', '$state' ];
+
+function controller(petsService, $state) {
+  this.styles = styles;
+
+  this.add = (pet) => {
+    console.log('Adding pet ', pet);
+    this.loading = true;
+    petsService.add(pet)
+      .then(saved => {
+        this.loading = false;
+        this.store.pets.push(saved);
+        $state.go('stores.all');
+      });
+  };
+}
