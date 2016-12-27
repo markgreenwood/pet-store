@@ -5,6 +5,10 @@ module.exports = function(config) {
   const options = {
     basePath: '',
     frameworks: ['mocha', 'chai'],
+    globals: {
+      angular: false,
+      chai: false
+    },
     files: [
       './src/main.js',
       './node_modules/angular-mocks/angular-mocks.js',

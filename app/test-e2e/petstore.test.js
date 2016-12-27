@@ -51,9 +51,10 @@ describe ('Pet store', () => {
       expect(header).toEqual('AllKindza Pets');
     });
 
-    // it ('displays a list of stores', () => {
-    //   // TODO: check for non-zero length list of stores
-    // });
+    it ('displays a list of stores', () => {
+      const rows = element(by.css('stores-all tr')).all;
+      expect(rows.length).toBeGreaterThan(1);
+    });
 
     // it ('has a link going to stores.add', () => {
     //   // TODO: click add new store link and make sure it goes to stores.add

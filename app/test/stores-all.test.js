@@ -1,4 +1,4 @@
-describe ('stores-all component', () => {
+describe.skip ('stores-all component', () => {
 
   const { expect } = chai;
 

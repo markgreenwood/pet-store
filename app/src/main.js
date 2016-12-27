@@ -14,4 +14,4 @@ const app = angular.module('petStoreApp', [ // eslint-disable-line no-unused-var
 ]);
 
 app.config(routes);
-app.value('apiUrl', 'https://pet-store-401.herokuapp.com/api');
+app.value('apiUrl', 'https://pet-store-401.herokuapp.com/api/unauth');
