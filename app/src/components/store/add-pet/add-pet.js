@@ -30,6 +30,6 @@ function controller($state) {
     });
 
     this.reset();
-    $state.go('store.pets');
+    $state.go('store', { id: this.store._id });
   };
 }

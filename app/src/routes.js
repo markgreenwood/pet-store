@@ -28,6 +28,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
     name: 'store',
     url: '/{id}',
     abstract: true,
+    default: '.pets',
     resolve: {
       store: [ 'storeService', '$transition$', (stores, t) => stores.get(t.params().id) ]
     },
@@ -46,5 +47,5 @@ export default function routes($stateProvider, $urlRouterProvider) {
     component: 'addPet'
   });
 
-  $urlRouterProvider.otherwise('/stores/all');
+  $urlRouterProvider.otherwise('/stores');
 }
