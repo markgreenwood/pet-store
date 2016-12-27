@@ -27,7 +27,6 @@ function controller($state) {
   };
 
   this.addNew = () => {
-    console.log('Entering addNew()...');
     this.parent.add({
       name: this.name,
       address: {
@@ -37,9 +36,7 @@ function controller($state) {
       }
     });
 
-    console.log('Resetting form...');
     this.reset();
-    console.log('Going to state stores.all');
     $state.go('stores.all');
   };
 }
