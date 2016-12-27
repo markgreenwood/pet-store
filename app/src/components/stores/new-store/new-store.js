@@ -33,6 +33,5 @@ function controller($state) {
     });
 
     this.reset();
-    $state.go('stores.all');
   };
 }

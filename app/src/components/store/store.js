@@ -21,7 +21,7 @@ function controller(petsService, $state) {
       .then(saved => {
         this.loading = false;
         this.store.pets.push(saved);
-        $state.go('stores.all');
+        $state.go('store.pets', { id: this.store._id });
       });
   };
 }

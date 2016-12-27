@@ -30,10 +30,10 @@ function controller($state) {
     });
 
     this.reset();
-    $state.go('store', { id: this.store._id });
+    $state.go('store.pets', { id: this.store._id });
   };
 
   this.cancel = () => {
-    $state.go('store', { id: this.store._id });
+    $state.go('store.pets', { id: this.store._id });
   };
 }
