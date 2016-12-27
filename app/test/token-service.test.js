@@ -26,7 +26,9 @@ describe ('tokenService', () => {
   });
 
   it ('removes the token from localStorage', () => {
-
+    tokenService.remove();
+    const retrieved = localStorage.getItem(TOKEN_NAME);
+    expect(retrieved).to.not.be.ok;
   });
 
 });
