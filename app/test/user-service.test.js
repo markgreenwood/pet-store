@@ -1,13 +1,15 @@
 describe ('userService', () => {
 
-  let userService = null; // eslint-disable-line no-unused-vars
+  let userService = null;
+  let $httpBackend = null;
 
   const TOKEN_NAME = 'petStoreToken';
 
-  beforeEach(angular.mock.module('services'));
+  beforeEach(angular.mock.module('services', { apiUrl: '/api' }));
 
-  beforeEach(angular.mock.inject(function(_userService_) {
+  beforeEach(angular.mock.inject(function(_userService_, _$httpBackend_) {
     userService = _userService_;
+    $httpBackend = _$httpBackend_;
   }));
 
   it ('isAuthenticated if we have a token', () => {
@@ -27,18 +29,41 @@ describe ('userService', () => {
     expect(userService.isAuthenticated()).to.not.be.ok;
   });
 
-  it ('sets a valid token when user provides valid credentials', () => {
+  it ('sets a valid token when user provides valid credentials', (done) => {
     localStorage.removeItem(TOKEN_NAME);
     const credentials = { username: 'testuser', password: 'testpassword' };
-    userService.signin(credentials);
-    expect(userService.isAuthenticated()).to.be.ok;
+    $httpBackend
+      .expectPOST('/api/auth/signin', credentials)
+      .respond('1');
+
+    userService.signin(credentials)
+      .then(() => {
+        expect(userService.isAuthenticated()).to.be.ok;
+        done();
+      })
+      .catch(done);
+
+    $httpBackend.flush();
   });
 
-  it ('does not set a valid token when user provides invalid credentials', () => {
+  it ('does not set a valid token when user provides invalid credentials', (done) => {
     localStorage.removeItem(TOKEN_NAME);
     const credentials = { username: 'baduser', password: 'badpassword' };
-    userService.signin(credentials);
-    expect(userService.isAuthenticated()).to.not.be.ok;
+    $httpBackend
+      .expectPOST('/api/auth/signin', credentials)
+      .respond(() => { return [ 401, 'Not authorized' ]; });
+
+    userService.signin(credentials)
+      .then(() => {
+        expect(userService.isAuthenticated()).to.be.ok;
+        done();
+      })
+      .catch((err) => {
+        expect(userService.isAuthenticated()).to.not.be.ok;
+        done();
+      });
+
+    $httpBackend.flush();
   });
 
 });
