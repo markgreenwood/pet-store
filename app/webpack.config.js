@@ -31,10 +31,16 @@ module.exports = {
         presets: ['es2015']
       }
     }, {
-      test: /\.scss/,
+      test: /\.css/,
       loader: cssExtract.extract(
         'style-loader',
         'css-loader?sourceMap!sass-loader?sourceMap'
+      )
+    },  {
+      test: /\.scss/,
+      loader: cssExtract.extract(
+        'style-loader',
+        'css-loader'
       )
     }, {
       test: /\.html$/,
