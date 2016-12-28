@@ -22,19 +22,19 @@ class StoresAllPage {
   }
 }
 
-describe ('Pet store', () => {
+describe.skip ('Pet store', () => {
 
   const storesPage = new StoresAllPage();
 
-  it ('has title', () => {
-    storesPage.get();
-    expect(storesPage.title).toEqual('AllKindza Pets');
+  it ('welcome page has title', () => {
+    browser.get('/');
+    expect(browser.getTitle()).toEqual('AllKindza Pets');
   });
 
   describe ('default state', () => {
 
     it ('goes to /welcome url', () => {
-      expect(storesPage.url).toBe('/welcome');
+      expect(browser.getLocationAbsUrl()).toBe('/welcome');
     });
 
   });
