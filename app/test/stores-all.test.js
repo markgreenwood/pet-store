@@ -7,9 +7,9 @@ describe ('stores-all component', () => {
     { id: 2, name: 'Store 2', city: 'Portland', state: 'OR' }
   ];
 
-  const store = {
-    id: 3, name: 'Store 3', city: 'Seattle', state: 'WA'
-  };
+  // const store = {
+  //   id: 3, name: 'Store 3', city: 'Seattle', state: 'WA'
+  // };
 
   beforeEach(
     angular.mock.module('components')
