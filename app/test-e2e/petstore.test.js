@@ -33,13 +33,18 @@ describe ('Pet store', () => {
 
   describe ('default state', () => {
 
-    it ('goes to /stores/all url', () => {
-      expect(storesPage.url).toBe('/stores/all');
+    it ('goes to /welcome url', () => {
+      expect(storesPage.url).toBe('/welcome');
     });
 
   });
 
   describe ('stores.all state', () => {
+
+    it ('link navigates to stores.all', () => {
+      element(by.css('#goto-stores')).click();
+      expect(browser.getLocationAbsUrl()).toBe('/stores/all');
+    });
 
     it ('uses the storesAll component', () => {
       expect(element(by.css('main ui-view')).all(by.css('*')).first().getTagName()).toEqual('stores');
