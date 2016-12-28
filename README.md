@@ -1,28 +1,24 @@
-# Program title 
+# Pet Store 
 
 ## Description
 
-TODO: Add program description.
+The Pet Store app is a frontend for the AllKindza Pets company. It connects to a provided backend database/API
+to track pet inventory at all the company's stores.
 
-## Code Example
+The default view is a list of all the company's affiliate stores. In this view, you can also add a new store to the list.
 
-```
-const todo = "Write some code here."
-```
+Clicking on any store in the list takes you to an individual store view which lists the pets available at that store.
+From this view, you can add a pet by providing its information (name and type of animal).
 
 ## Motivation
 
 This was written as a lab assignment for Code Fellows 401 class.
 
-## API Reference
-
-### Put in descriptions...
-
-### ...of API calls if applicable
-
 ## Tests
 
-The accompanying test suite can be run using the 'npm test' command.
+The accompanying unit and integration test suite can be run using the `npm test` command.
+
+The end-to-end tests can be run using the `npm run e2e` command.
 
 ## Contributors
 
