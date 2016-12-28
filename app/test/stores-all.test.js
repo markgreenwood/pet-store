@@ -1,4 +1,4 @@
-describe.skip ('stores-all component', () => {
+describe ('stores-all component', () => {
 
   const { expect } = chai;
 
@@ -16,28 +16,29 @@ describe.skip ('stores-all component', () => {
   );
 
   let $component = null;
+  let $state = {};
 
   beforeEach(angular.mock.inject(($componentController) => {
     $component = $componentController;
   }));
 
-  const storeService = {
-    get(storeId) { // eslint-disable-line no-unused-vars
-      return Promise.resolve(store);
-    },
-    getAll() {
-      return Promise.resolve(stores);
-    },
-    add(store) {
-      return Promise.resolve(store);
-    }
-  };
+  // const storeService = {
+  //   get(storeId) { // eslint-disable-line no-unused-vars
+  //     return Promise.resolve(store);
+  //   },
+  //   getAll() {
+  //     return Promise.resolve(stores);
+  //   },
+  //   add(store) {
+  //     return Promise.resolve(store);
+  //   }
+  // };
 
   it ('displays a list of stores', (done) => {
-    const component = $component('storesAll', { storeService }, { stores });
+    const component = $component('storesAll', { $state }, { storeList: stores });
 
     setTimeout(() => {
-      expect(component.stores).to.deep.equal(stores);
+      expect(component.storeList).to.deep.equal(stores);
       done();
     });
 

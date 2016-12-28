@@ -52,21 +52,25 @@ describe ('Pet store', () => {
     });
 
     it ('displays a list of stores', () => {
-      const rows = element(by.css('stores-all tr')).all;
-      expect(rows.length).toBeGreaterThan(1);
+      const rows = element.all(by.css('.storelink')).getTagName();
+      expect(rows.count()).toBeGreaterThan(1);
     });
 
-    // it ('has a link going to stores.add', () => {
-    //   // TODO: click add new store link and make sure it goes to stores.add
-    // });
+    it ('has a link going to stores.add', () => {
+      element(by.css('#add-store')).click();
+      expect(browser.getLocationAbsUrl()).toEqual('/stores/add');
+    });
 
-    // it ('cancel button returns to stores.all', () => {
-    //   // TODO: click cancel and check for stores.all state
-    // });
+    it ('cancel button returns to stores.all', () => {
+      element(by.css('#cancel-add-store')).click();
+      expect(browser.getLocationAbsUrl()).toEqual('/stores/all');
+    });
 
-    // it ('clicking on a store listing goes to store.pets for that store', () => {
-    //   // TODO: click on a store and check for state store.pets (component, url, etc.)
-    // });
+    it ('clicking on a store listing goes to store.pets for that store', () => {
+      // TODO: click on a store and check for state store.pets (component, url, etc.)
+      element.all(by.css('.storelink')).first().click();
+      expect(browser.getLocationAbsUrl()).toMatch(/[0-9a-f]+\/pets/);
+    });
 
   });
 

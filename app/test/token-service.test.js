@@ -5,7 +5,7 @@ describe ('tokenService', () => {
 
   const TOKEN_NAME = 'petStoreToken';
 
-  beforeEach(angular.mock.module('petStoreApp'));
+  beforeEach(angular.mock.module('services'));
 
   beforeEach(angular.mock.inject(function(_tokenService_) {
     tokenService = _tokenService_;
