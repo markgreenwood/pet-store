@@ -4,6 +4,12 @@ export default function userService(tokenService, $window) { // eslint-disable-l
   return {
     isAuthenticated() {
       return !!tokenService.get();
+    },
+    logout() {
+      tokenService.remove();
+    },
+    signin() {
+      tokenService.set(1);
     }
   };
 }
