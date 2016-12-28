@@ -2,15 +2,22 @@ describe ('userService', () => {
 
   let userService = null; // eslint-disable-line no-unused-vars
 
+  const TOKEN_NAME = 'petStoreToken';
+  
   beforeEach(angular.mock.module('services'));
 
   beforeEach(angular.mock.inject(function(_userService_) {
     userService = _userService_;
   }));
 
-  it.skip ('authenticates the user', (done) => {
-    expect(false).to.be.ok;
-    done();
+  it ('isAuthenticated if we have a token', () => {
+    localStorage.setItem(TOKEN_NAME, '1');
+    expect(userService.isAuthenticated()).to.be.ok;
+  });
+
+  it ('not isAuthenticated if we don\'t have a token', () => {
+    localStorage.removeItem(TOKEN_NAME);
+    expect(userService.isAuthenticated()).to.not.be.ok;
   });
 
 });
