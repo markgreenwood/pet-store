@@ -58,7 +58,44 @@ describe ('userService', () => {
         expect(userService.isAuthenticated()).to.be.ok;
         done();
       })
-      .catch((err) => {
+      .catch((err) => { // eslint-disable-line no-unused-vars
+        expect(userService.isAuthenticated()).to.not.be.ok;
+        done();
+      });
+
+    $httpBackend.flush();
+  });
+
+  it ('sets a valid token when the user signs up with valid credentials', (done) => {
+    localStorage.removeItem(TOKEN_NAME);
+    const credentials = { email: 'name@email.com', username: 'testuser', password: 'testpassword' };
+    $httpBackend
+      .expectPOST('/api/auth/signup', credentials)
+      .respond('1');
+
+    userService.signup(credentials)
+      .then(() => {
+        expect(userService.isAuthenticated()).to.be.ok;
+        done();
+      })
+      .catch(done);
+
+    $httpBackend.flush();    
+  });
+
+  it ('does not set a valid token when the user does not sign up with valid credentials', (done) => {
+    localStorage.removeItem(TOKEN_NAME);
+    const credentials = { username: 'baduser', password: 'badpassword' };
+    $httpBackend
+      .expectPOST('/api/auth/signup', credentials)
+      .respond(() => { return [ 401, 'Not authorized' ]; });
+
+    userService.signup(credentials)
+      .then(() => {
+        expect(userService.isAuthenticated()).to.be.ok;
+        done();
+      })
+      .catch((err) => { // eslint-disable-line no-unused-vars
         expect(userService.isAuthenticated()).to.not.be.ok;
         done();
       });

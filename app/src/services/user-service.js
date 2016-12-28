@@ -16,6 +16,15 @@ export default function userService(tokenService, $http, apiUrl, $window) { // e
         .catch(err => {
           throw err.data;
         });
+    },
+    signup(credentials) {
+      return $http.post(`${apiUrl}/auth/signup`, credentials)
+        .then(result => {
+          tokenService.set(result.data.token);
+        })
+        .catch(err => {
+          throw err.data;
+        });
     }
   };
 }
