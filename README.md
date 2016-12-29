@@ -5,7 +5,9 @@
 The Pet Store app is a frontend for the AllKindza Pets company. It connects to a provided backend database/API
 to track pet inventory at all the company's stores.
 
-The default view is a list of all the company's affiliate stores. In this view, you can also add a new store to the list.
+The default view is a welcome page. To see store data, you must log in and be authorized. Once signed in, 
+you can go from the welcome page to a list of all the company's affiliate stores. In this view, you can 
+also add a new store to the list.
 
 Clicking on any store in the list takes you to an individual store view which lists the pets available at that store.
 From this view, you can add a pet by providing its information (name and type of animal).
