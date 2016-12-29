@@ -11,6 +11,12 @@ import dialog from 'ng-dialog';
 import 'ng-dialog/css/ngDialog.css';
 import 'ng-dialog/css/ngDialog-theme-default.css';
 
+import ngMaterial from 'angular-material';
+import 'angular-material/angular-material.min.css';
+import 'angular-material/layouts/angular-material.layouts.min.css';
+import 'angular-aria';
+import 'angular-animate';
+
 import routes from './routes';
 import http from './http';
 import auth from './auth';
@@ -21,6 +27,7 @@ const app = angular.module('petStoreApp', [
   uiRouter,
   angular.module('ui.router.state.events').name,
   defaultRoute,
+  ngMaterial,
   dialog
 ]);
 
