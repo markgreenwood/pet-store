@@ -1,28 +1,28 @@
-class StoresAllPage {
-  constructor() {
-    const nav = element.all(by.css('nav a'));
-    this.stores = nav.get(1);
-    this.uiView = element(by.css('main ui-view'));
-  }
+// class StoresAllPage {
+//   constructor() {
+//     const nav = element.all(by.css('nav a'));
+//     this.stores = nav.get(1);
+//     this.uiView = element(by.css('main ui-view'));
+//   }
 
-  get() {
-    return browser.get('/');
-  }
+//   get() {
+//     return browser.get('/');
+//   }
 
-  get title() {
-    return browser.getTitle();
-  }
+//   get title() {
+//     return browser.getTitle();
+//   }
 
-  get url() {
-    return browser.getLocationAbsUrl();
-  }
+//   get url() {
+//     return browser.getLocationAbsUrl();
+//   }
 
-  get stateComponent() {
-    return element(by.css());
-  }
-}
+//   get stateComponent() {
+//     return element(by.css());
+//   }
+// }
 
-describe ('Pet store', () => {
+describe ('Pet store app', () => {
 
   it ('welcome page has title', () => {
     browser.get('/');
